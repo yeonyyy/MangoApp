@@ -1,0 +1,99 @@
+[
+    {
+        "id":0,
+        "title":"Olivia Thebaut와 함께하는 슬로우 루틴",
+        "desc":"프랑스의 아트 디렉터인 그녀가 집에서 휴식을 취하며 에너지를 충전하는 비결을 소개합니다.",
+        "imageUrl":"",
+        "imageName":"promotion0",
+        "promotionType":"trends"
+    },
+    {
+        "id":1,
+        "title":"공식 아젠다 정렬됨",
+        "desc":"이제 시즌 이벤트에 강렬한 임팩트를 선사할 의류를 선택할 때입니다.",
+        "imageUrl":"",
+        "imageName":"promotion1",
+        "promotionType":"ideatip"
+    },
+    {
+        "id":2,
+        "title":"캡슐에 관한 모든 것",
+        "desc":"가장 정교한 이벤트 컬렉션의 프리미엄 기능에 대한 자세한 리뷰입니다.",
+        "imageUrl":"",
+        "imageName":"promotion2",
+        "promotionType":"trends"
+    },
+    {
+        "id":3,
+        "title":"Olivia Thebaut와 함께하는 슬로우 루틴",
+        "desc":"프랑스의 아트 디렉터인 그녀가 집에서 휴식을 취하며 에너지를 충전하는 비결을 소개합니다.",
+        "imageUrl":"",
+        "imageName":"promotion3",
+        "promotionType":"ideatip"
+    },
+    {
+        "id":4,
+        "title":"나만의 개성이 담긴 스타일",
+        "desc":"Mango Girls의 팁과 요령을 알아보고 신상품을 최대한 활용할 수 있는 영감을 받아보세요.",
+        "imageUrl":"",
+        "imageName":"promotion4",
+        "promotionType":"mangoCommunity"
+    },
+    {
+        "id":5,
+        "title":"90년대 스타일의 귀환",
+        "desc":"오늘날 다시 유행하고 있는 지난 10년 동안 가장 전복적인 미학의 비밀을 파헤쳐봅니다.",
+        "imageUrl":"",
+        "imageName":"promotion5",
+        "promotionType":"trends"
+    },
+    {
+        "id":6,
+        "title":"봄 에디션",
+        "desc":"새 시즌은 좋은 날씨뿐만 아니라 멋진 룩도 선사합니다.",
+        "imageUrl":"",
+        "imageName":"promotion6",
+        "promotionType":"lifestyle"
+    },
+    {
+        "id":7,
+        "title":"보헤미안 시크의 귀환을 준비하세요",
+        "desc":"오늘의 스타일로 로맨틱한 뉴트로 트렌드를 구출하는 방법을 알려드립니다.",
+        "imageUrl":"",
+        "imageName":"promotion7",
+        "promotionType":"trends"
+    },
+    {
+        "id":8,
+        "title":"여름 가방 살펴보기",
+        "desc":"이번 시즌에도 천연 섬유 디자인이 가장 인기가 많습니다. 여기서 스타일링 방법을 확인하세요.",
+        "imageUrl":"",
+        "imageName":"promotion8",
+        "promotionType":"trends"
+    },
+    {
+        "id":9,
+        "title":"4월의 위시리스트",
+        "desc":"이달의 가장 중요한 스타일링 팁으로 옷장에서 좋은 날씨를 맞이하세요.",
+        "imageUrl":"",
+        "imageName":"promotion9",
+        "promotionType":"lifestyle"
+    },
+    {
+        "id":10,
+        "title":"영원한 코트",
+        "desc":"모험. 트렌치. 헐리우드의 매력: 트렌치코트의 장대한 역사를 탐구합니다.",
+        "imageUrl":"",
+        "imageName":"promotion10",
+        "promotionType":"sustainability"
+    },
+    {
+        "id":11,
+        "title":"단정한 힐에 대한 열기",
+        "desc":"가장 보편화된 신발의 착용 방법을 확인하세요.",
+        "imageUrl":"",
+        "imageName":"promotion11",
+        "promotionType":"trends"
+    }
+]
+
