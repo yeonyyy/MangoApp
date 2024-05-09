@@ -1,5 +1,5 @@
 # MangoApp
-Mango(e-commerce app) 스타일 앱 구현하기 (ing)
+Mango(e-commerce app) 스타일 앱 구현하기
 
 ### 개발환경
 * Swift5, iOS15, xcode15.4 이상
