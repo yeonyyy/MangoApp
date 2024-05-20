@@ -38,7 +38,7 @@ final class SearchViewModel : ViewModelType {
             .subscribe(onNext: { [weak self] (idx) in
                 guard let self = self else { return }
                 
-                var headerElement = self.headerElement.value
+                let headerElement = self.headerElement.value
                 headerElement[lastSelectedIndex].isSelected.accept(false)
                 headerElement[idx].isSelected.accept(true)
                 

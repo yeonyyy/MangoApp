@@ -86,7 +86,7 @@ final class Service : ServiceProtocol {
             let task = self.request(with: url, method: .get) { responseData, requsetError in
                 if let error = requsetError {
                     observer.onError(error)
-
+                    
                 } else if let data = responseData {
                     observer.onNext(data)
                     observer.onCompleted()
@@ -95,7 +95,10 @@ final class Service : ServiceProtocol {
                 }
             }
             
-            return Disposables.create(with: task.cancel)
+            //            return Disposables.create(with: task.cancel)
+            return Disposables.create {
+                task.cancel()
+            }
         }
     }
     
@@ -109,7 +112,7 @@ final class Service : ServiceProtocol {
             defer {
                 completion(responseData, error)
             }
-    
+            
             guard requsetError == nil else {
                 error = requsetError
                 return

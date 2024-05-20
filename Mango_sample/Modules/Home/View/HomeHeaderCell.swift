@@ -42,7 +42,6 @@ class HomeHeaderCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("ry cell preprare", contentView)
         disposeBag = DisposeBag()
         self.titleLabel.text = ""
     }

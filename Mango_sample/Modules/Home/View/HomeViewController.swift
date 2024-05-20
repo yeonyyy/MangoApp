@@ -171,6 +171,7 @@ extension HomeViewController :UIScrollViewDelegate {
 
             // Header needs to animate
             if newHeight != self.headerHeightConstraint.layoutConstraints[0].constant {
+                print("newheight:", newHeight)
                 self.headerHeightConstraint.layoutConstraints[0].constant = newHeight
                 self.updateHeader()
                 self.setScrollPosition(self.previousScrollOffset)

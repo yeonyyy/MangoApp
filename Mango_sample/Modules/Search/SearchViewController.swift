@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 enum SearchSectionItem : Identifiable  {
     case category(HeaderItem)
@@ -50,7 +51,7 @@ final class SearchViewController: UIViewController {
     
     private var headers: [HeaderItem]? = []
     var dataSource : UICollectionViewDiffableDataSource<Section.ID, SearchSectionItem.ID>! = nil
-    var snapshot = NSDiffableDataSourceSnapshot<Section.ID, SearchSectionItem.ID>()
+    //    var snapshot = NSDiffableDataSourceSnapshot<Section.ID, SearchSectionItem.ID>()
     
     private var viewModel: SearchViewModel?
     private var disposeBag = DisposeBag()
@@ -126,11 +127,10 @@ extension SearchViewController {
     private func createCategorySectionRegistration() -> UICollectionView.CellRegistration<CategoryCell, SearchSectionItem.ID> {
         return UICollectionView.CellRegistration<CategoryCell, SearchSectionItem.ID> {  [weak self] cell, indexPath, identifier in
             guard let self = self else { return }
-            print("ry ", indexPath, cell)
             
             guard let items = self.viewModel?.headerElement.value else { return }
             guard let item = items.first(where: { $0.id == identifier }) else { return }
- 
+            
             cell.titleLabel.text = item.title
             if item.isSelected.value == true {
                 cell.containerView.layer.borderColor = UIColor.black.cgColor
@@ -153,29 +153,14 @@ extension SearchViewController {
             cell.priceLabel.text = product.lprice
             cell.layout = self.collectionView.collectionViewLayout as? CustomCollectionViewCompositionalLayout
             
-            if let data = product.image.value, let image = UIImage(data: data) {
-                cell.imageView.image = image
-                cell.imageView.snp.updateConstraints { make in
-                    let newheight = cell.bounds.width * (image.size.height)/(image.size.width)
-                    cell.imageView.snp.updateConstraints { make in
-                        make.height.equalTo(newheight).priority(999)
+            if let url = product.imageUrl {
+                cell.imageView.kf.setImage(with: URL(string: url)) { [weak self] result in
+                    guard case .success(let value) = result, let self else { return }
+                    cell.imageView.snp.updateConstraints {
+                        let newheight = cell.bounds.width * (value.image.size.height)/(value.image.size.width)
+                        $0.height.equalTo(newheight).priority(999)
                     }
                     cell.invalidateIntrinsicContentSize()
-                }
-            }else {
-                if let url = product.imageUrl {
-                    _ = self.service.requestImage(urlString: url)
-                        .observe(on: MainScheduler.asyncInstance)
-                        .subscribe(onNext: { [weak self] data in
-                            guard let self = self else { return }
-                            if let index = products.firstIndex(where: { $0.id == itemIdentifier }) {
-                                self.viewModel?.element.value[index].image.accept(data)
-                                var snapshot = self.dataSource.snapshot()
-                                snapshot.reconfigureItems([itemIdentifier])
-                                self.dataSource.apply(snapshot, animatingDifferences: true)
-                            }
-                        })
-                        .disposed(by: disposeBag)
                 }
             }
         }
@@ -186,7 +171,7 @@ extension SearchViewController {
         let productCellRegistration = createProductSectionRegistration()
         
         dataSource = UICollectionViewDiffableDataSource<Section.ID, SearchSectionItem.ID>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier  -> UICollectionViewCell? in
-
+            
             let sectionID = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             switch sectionID {
             case .category:
@@ -199,6 +184,7 @@ extension SearchViewController {
     }
     
     private func applyInitialSnapshots(){
+        var snapshot = NSDiffableDataSourceSnapshot<Section.ID, SearchSectionItem.ID>()
         snapshot.appendSections(Section.ID.allCases)
         dataSource.apply(snapshot, animatingDifferences: false)
         
@@ -207,6 +193,7 @@ extension SearchViewController {
     private func bindViewModel() {
         guard let viewModel = viewModel else { return }
         
+        
         let input = SearchViewModel.Input(trigger: Observable.just(()),
                                           headerSelection: selectedHeader.asObservable())
         let output = viewModel.transform(input: input, disposeBag: disposeBag)
@@ -214,10 +201,14 @@ extension SearchViewController {
         output.item
             .drive(onNext: { [weak self] products in
                 guard let self = self else { return }
+                var snapshot = self.dataSource.snapshot()
+                snapshot.deleteSections([.product])
+                dataSource.apply(snapshot)
+                
                 let identifiers = products.map { $0.id }
-                var snapshot = NSDiffableDataSourceSectionSnapshot<SearchSectionItem.ID>()
-                snapshot.append(identifiers)
-                self.dataSource.apply(snapshot, to: .product, animatingDifferences: false)
+                var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<SearchSectionItem.ID>()
+                sectionSnapshot.append(identifiers)
+                self.dataSource.apply(sectionSnapshot, to: .product, animatingDifferences: false)
                 
             })
             .disposed(by: disposeBag)
@@ -225,10 +216,14 @@ extension SearchViewController {
         output.headerItem
             .drive(onNext: { [weak self] items in
                 guard let self = self else { return }
-                var sanpshot = NSDiffableDataSourceSectionSnapshot<SearchSectionItem.ID>()
+                var snapshot = self.dataSource.snapshot()
+                snapshot.deleteSections([.category])
+                dataSource.apply(snapshot)
+                
+                var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<SearchSectionItem.ID>()
                 let identifiers = items.map { $0.id }
-                sanpshot.append(identifiers)
-                self.dataSource.apply(sanpshot, to: .category, animatingDifferences: false)
+                sectionSnapshot.append(identifiers)
+                self.dataSource.apply(sectionSnapshot, to: .category, animatingDifferences: false)
                 
             })
             .disposed(by: disposeBag)
