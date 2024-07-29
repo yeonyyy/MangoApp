@@ -23,11 +23,8 @@ final class TabBarCoordinator : ReactiveCoordinator<Void> {
         let tabBarController = self.rootViewController
         tabBarController?.coordinator = self
         
-        let homeCoordinator =  tabBarDIContainer.makeHomeCoordinator()
-        let searchCoordinator = tabBarDIContainer.makeSearchCoordinator()
-//        let cartCoordinator = tabBarDIContainer.makeCartCoordinator()
-//        let favoriteCoordinator = tabBarDIContainer.makeFavoriteCoordinator()
-//        let accountCoordinator = tabBarDIContainer.makeAccountCooridnator()
+        let homeCoordinator =  tabBarDIContainer.makeHomeCoordinator(homeNavigationController.viewControllers[0])
+        let searchCoordinator = tabBarDIContainer.makeSearchCoordinator(searchNavigationController.viewControllers[0])
         
         _ = [homeCoordinator, searchCoordinator].map {
             coordinate(to: $0)

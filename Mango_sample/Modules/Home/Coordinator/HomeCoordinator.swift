@@ -12,8 +12,8 @@ class HomeCoordinator : ReactiveCoordinator<Void> {
     private let rootController: UIViewController
     private var tabBarDIContainer : TabBarDIContainer
     
-    init(_ diContainer : TabBarDIContainer) {
-        self.rootController = diContainer.makeHomeViewController()
+    init(rootViewController: UIViewController, diContainer : TabBarDIContainer) {
+        self.rootController = rootViewController
         self.tabBarDIContainer = diContainer
     }
     

@@ -18,8 +18,8 @@ final class TabBarDIContainer {
         return HomeViewModel()
     }
     
-    func makeHomeCoordinator() -> HomeCoordinator {
-        return HomeCoordinator(self)
+    func makeHomeCoordinator(_ rootViewController:UIViewController) -> HomeCoordinator {
+        return HomeCoordinator(rootViewController: rootViewController, diContainer: self)
     }
     
     // MARK: - Search
@@ -31,8 +31,8 @@ final class TabBarDIContainer {
         return SearchViewModel()
     }
     
-    func makeSearchCoordinator() -> SearchCoordinator {
-        return SearchCoordinator(self)
+    func makeSearchCoordinator(_ rootViewController:UIViewController) -> SearchCoordinator {
+        return SearchCoordinator(rootViewController: rootViewController, diContainer: self)
     }
     
     // MARK: - Cart

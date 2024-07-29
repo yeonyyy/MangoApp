@@ -12,8 +12,8 @@ class SearchCoordinator : ReactiveCoordinator<Void> {
     public let rootController: UIViewController
     private var tabBarDIContainer : TabBarDIContainer
     
-    init(_ diContainer : TabBarDIContainer) {
-        self.rootController = diContainer.makeSearchViewController()
+    init(rootViewController: UIViewController, diContainer : TabBarDIContainer) {
+        self.rootController = rootViewController
         self.tabBarDIContainer = diContainer
     }
     
